@@ -8,11 +8,21 @@ namespace AddressBook.Services
     {
         private List<ContactPerson> persons = new List<ContactPerson>();
 
-        // UC-1 & UC-5: Add Contact(s)
-        public void AddContact(ContactPerson contact)
+        // UC-6: Duplicate check
+        private bool IsDuplicate(string firstName)
         {
+            return persons.Exists(p =>
+                p.FirstName.Equals(firstName, StringComparison.OrdinalIgnoreCase));
+        }
+
+        // UC-1, UC-5, UC-6: Add Contact
+        public bool AddContact(ContactPerson contact)
+        {
+            if (IsDuplicate(contact.FirstName))
+                return false;
+
             persons.Add(contact);
-            Console.WriteLine("\nContact added successfully!");
+            return true;
         }
 
         // UC-3: Edit Contact
@@ -47,7 +57,7 @@ namespace AddressBook.Services
             return true;
         }
 
-        // Display All Contacts
+        // Display Contacts
         public void DisplayAllContacts()
         {
             if (persons.Count == 0)
@@ -58,7 +68,7 @@ namespace AddressBook.Services
 
             foreach (var p in persons)
             {
-                Console.WriteLine("\n----------------------");
+                Console.WriteLine("\n---------------------");
                 Console.WriteLine("First Name : " + p.FirstName);
                 Console.WriteLine("Last Name  : " + p.LastName);
                 Console.WriteLine("Address    : " + p.Address);

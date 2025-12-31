@@ -25,7 +25,7 @@ namespace AddressBook
 
                 switch (choice)
                 {
-                    case 1: // UC-1 & UC-5
+                    case 1:
                         ContactPerson person = new ContactPerson();
 
                         Console.Write("First Name: ");
@@ -52,10 +52,13 @@ namespace AddressBook
                         Console.Write("Email: ");
                         person.Email = Console.ReadLine();
 
-                        service.AddContact(person);
+                        if (service.AddContact(person))
+                            Console.WriteLine("Contact added successfully!");
+                        else
+                            Console.WriteLine("Duplicate contact not allowed!");
                         break;
 
-                    case 2: // UC-3
+                    case 2:
                         Console.Write("Enter First Name to Edit: ");
                         string editName = Console.ReadLine();
 
@@ -85,7 +88,7 @@ namespace AddressBook
                             Console.WriteLine("Contact not found!");
                         break;
 
-                    case 3: // UC-4
+                    case 3:
                         Console.Write("Enter First Name to Delete: ");
                         string deleteName = Console.ReadLine();
 
@@ -100,7 +103,7 @@ namespace AddressBook
                         break;
 
                     case 0:
-                        Console.WriteLine("Exiting...");
+                        Console.WriteLine("Exiting program...");
                         break;
 
                     default:
