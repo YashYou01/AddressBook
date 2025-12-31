@@ -42,7 +42,7 @@ namespace AddressBook
             service.AddContact(person);
             service.DisplayContact();
 
-            // ---------- UC-2 ----------
+            // ---------- UC-3 ----------
             Console.Write("\nEnter First Name to Edit: ");
             string name = Console.ReadLine();
 

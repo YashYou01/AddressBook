@@ -14,7 +14,7 @@ namespace AddressBook.Services
             Console.WriteLine("\nContact added successfully!\n");
         }
 
-        // UC-2: Edit Contact using First Name
+        // UC-3: Edit Contact using First Name
         public bool EditContact(string firstName, ContactPerson updatedData)
         {
             if (person != null &&
