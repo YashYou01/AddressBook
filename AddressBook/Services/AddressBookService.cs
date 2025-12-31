@@ -14,6 +14,25 @@ namespace AddressBook.Services
             Console.WriteLine("\nContact added successfully!\n");
         }
 
+        // UC-2: Edit Contact using First Name
+        public bool EditContact(string firstName, ContactPerson updatedData)
+        {
+            if (person != null &&
+                person.FirstName.Equals(firstName, StringComparison.OrdinalIgnoreCase))
+            {
+                person.Address = updatedData.Address;
+                person.City = updatedData.City;
+                person.State = updatedData.State;
+                person.Zip = updatedData.Zip;
+                person.PhoneNumber = updatedData.PhoneNumber;
+                person.Email = updatedData.Email;
+
+                return true;
+            }
+            return false;
+        }
+
+
         public void DisplayContact()
         {
             Console.WriteLine("Contact Details:");
@@ -26,5 +45,6 @@ namespace AddressBook.Services
             Console.WriteLine("Phone No   : " + person.PhoneNumber);
             Console.WriteLine("Email      : " + person.Email);
         }
+
     }
 }
