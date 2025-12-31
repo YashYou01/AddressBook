@@ -8,105 +8,107 @@ namespace AddressBook
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Welcome to Address Book Program\n");
-
             AddressBookService service = new AddressBookService();
-            string choice;
+            int choice;
 
-            // ---------- UC-1 ----------
-            ContactPerson person = new ContactPerson();
-
-            Console.Write("Enter First Name: ");
-            person.FirstName = Console.ReadLine();
-
-            Console.Write("Enter Last Name: ");
-            person.LastName = Console.ReadLine();
-
-            Console.Write("Enter Address: ");
-            person.Address = Console.ReadLine();
-
-            Console.Write("Enter City: ");
-            person.City = Console.ReadLine();
-
-            Console.Write("Enter State: ");
-            person.State = Console.ReadLine();
-
-            Console.Write("Enter Zip: ");
-            person.Zip = Console.ReadLine();
-
-            Console.Write("Enter Phone Number: ");
-            person.PhoneNumber = Console.ReadLine();
-
-            Console.Write("Enter Email: ");
-            person.Email = Console.ReadLine();
-
-            service.AddContact(person);
-            service.DisplayContact();
-
-            // -------- UC-3 : Edit Contact --------
-            Console.Write("\nDo you want to edit the contact? (yes/no): ");
-            choice = Console.ReadLine();
-
-            if (choice.Equals("yes", StringComparison.OrdinalIgnoreCase))
+            do
             {
-                Console.Write("Enter First Name to Edit: ");
-                string editName = Console.ReadLine();
+                Console.WriteLine("\n--- Address Book Menu ---");
+                Console.WriteLine("1. Add Contact");
+                Console.WriteLine("2. Edit Contact");
+                Console.WriteLine("3. Delete Contact");
+                Console.WriteLine("4. Display All Contacts");
+                Console.WriteLine("0. Exit");
+                Console.Write("Enter choice: ");
 
-                //  Check FIRST
-                if (!service.ContactExists(editName))
+                choice = Convert.ToInt32(Console.ReadLine());
+
+                switch (choice)
                 {
-                    Console.WriteLine("\nContact Not Found!");
+                    case 1: // UC-1 & UC-5
+                        ContactPerson person = new ContactPerson();
+
+                        Console.Write("First Name: ");
+                        person.FirstName = Console.ReadLine();
+
+                        Console.Write("Last Name: ");
+                        person.LastName = Console.ReadLine();
+
+                        Console.Write("Address: ");
+                        person.Address = Console.ReadLine();
+
+                        Console.Write("City: ");
+                        person.City = Console.ReadLine();
+
+                        Console.Write("State: ");
+                        person.State = Console.ReadLine();
+
+                        Console.Write("Zip: ");
+                        person.Zip = Console.ReadLine();
+
+                        Console.Write("Phone Number: ");
+                        person.PhoneNumber = Console.ReadLine();
+
+                        Console.Write("Email: ");
+                        person.Email = Console.ReadLine();
+
+                        service.AddContact(person);
+                        break;
+
+                    case 2: // UC-3
+                        Console.Write("Enter First Name to Edit: ");
+                        string editName = Console.ReadLine();
+
+                        ContactPerson updated = new ContactPerson();
+
+                        Console.Write("New Address: ");
+                        updated.Address = Console.ReadLine();
+
+                        Console.Write("New City: ");
+                        updated.City = Console.ReadLine();
+
+                        Console.Write("New State: ");
+                        updated.State = Console.ReadLine();
+
+                        Console.Write("New Zip: ");
+                        updated.Zip = Console.ReadLine();
+
+                        Console.Write("New Phone Number: ");
+                        updated.PhoneNumber = Console.ReadLine();
+
+                        Console.Write("New Email: ");
+                        updated.Email = Console.ReadLine();
+
+                        if (service.EditContact(editName, updated))
+                            Console.WriteLine("Contact updated successfully!");
+                        else
+                            Console.WriteLine("Contact not found!");
+                        break;
+
+                    case 3: // UC-4
+                        Console.Write("Enter First Name to Delete: ");
+                        string deleteName = Console.ReadLine();
+
+                        if (service.DeleteContact(deleteName))
+                            Console.WriteLine("Contact deleted successfully!");
+                        else
+                            Console.WriteLine("Contact not found!");
+                        break;
+
+                    case 4:
+                        service.DisplayAllContacts();
+                        break;
+
+                    case 0:
+                        Console.WriteLine("Exiting...");
+                        break;
+
+                    default:
+                        Console.WriteLine("Invalid choice!");
+                        break;
                 }
-                else
-                {
-                    //  Ask fields ONLY if contact exists
-                    ContactPerson updated = new ContactPerson();
 
-                    Console.Write("Enter New Address: ");
-                    updated.Address = Console.ReadLine();
-
-                    Console.Write("Enter New City: ");
-                    updated.City = Console.ReadLine();
-
-                    Console.Write("Enter New State: ");
-                    updated.State = Console.ReadLine();
-
-                    Console.Write("Enter New Zip: ");
-                    updated.Zip = Console.ReadLine();
-
-                    Console.Write("Enter New Phone Number: ");
-                    updated.PhoneNumber = Console.ReadLine();
-
-                    Console.Write("Enter New Email: ");
-                    updated.Email = Console.ReadLine();
-
-                    service.EditContact(editName, updated);
-                    Console.WriteLine("\nContact Updated Successfully!");
-                    service.DisplayContact();
-                }
-            }
-
-            // ---------------- UC-4 : Delete Contact ----------------
-            Console.Write("\nDo you want to delete the contact? (yes/no): ");
-            choice = Console.ReadLine();
-
-            if (choice.Equals("yes", StringComparison.OrdinalIgnoreCase))
-            {
-                Console.Write("Enter First Name to Delete: ");
-                string deleteName = Console.ReadLine();
-
-                if (service.DeleteContact(deleteName))
-                {
-                    Console.WriteLine("\nContact Deleted Successfully!");
-                }
-                else
-                {
-                    Console.WriteLine("\nContact Not Found!");
-                }
-            }
-
-
-            Console.ReadLine();
+            } while (choice != 0);
         }
     }
 }

@@ -1,73 +1,73 @@
 ﻿using AddressBook.Models;
 using System;
+using System.Collections.Generic;
 
 namespace AddressBook.Services
 {
     public class AddressBookService
     {
-        private ContactPerson person;
+        private List<ContactPerson> persons = new List<ContactPerson>();
 
-        // UC-1: Add Contact
+        // UC-1 & UC-5: Add Contact(s)
         public void AddContact(ContactPerson contact)
         {
-            person = contact;
-            Console.WriteLine("\nContact added successfully!\n");
+            persons.Add(contact);
+            Console.WriteLine("\nContact added successfully!");
         }
 
-        // UC-3: Edit Contact using First Name
-        public bool EditContact(string firstName, ContactPerson updatedData)
+        // UC-3: Edit Contact
+        public bool EditContact(string firstName, ContactPerson updated)
         {
-            if (person != null &&
-                person.FirstName.Equals(firstName, StringComparison.OrdinalIgnoreCase))
-            {
-                person.Address = updatedData.Address;
-                person.City = updatedData.City;
-                person.State = updatedData.State;
-                person.Zip = updatedData.Zip;
-                person.PhoneNumber = updatedData.PhoneNumber;
-                person.Email = updatedData.Email;
+            ContactPerson person = persons.Find(p =>
+                p.FirstName.Equals(firstName, StringComparison.OrdinalIgnoreCase));
 
-                return true;
-            }
-            return false;
-        }
-        // Check if contact exists (UC-3 helper)
-        public bool ContactExists(string firstName)
-        {
-            return person != null &&
-                   person.FirstName.Equals(firstName, StringComparison.OrdinalIgnoreCase);
+            if (person == null)
+                return false;
+
+            person.Address = updated.Address;
+            person.City = updated.City;
+            person.State = updated.State;
+            person.Zip = updated.Zip;
+            person.PhoneNumber = updated.PhoneNumber;
+            person.Email = updated.Email;
+
+            return true;
         }
 
-        //  UC-4: Delete Contact using name
+        // UC-4: Delete Contact
         public bool DeleteContact(string firstName)
         {
-            if (person != null &&
-                person.FirstName.Equals(firstName, StringComparison.OrdinalIgnoreCase))
-            {
-                person = null;
-                return true;
-            }
-            return false;
+            ContactPerson person = persons.Find(p =>
+                p.FirstName.Equals(firstName, StringComparison.OrdinalIgnoreCase));
+
+            if (person == null)
+                return false;
+
+            persons.Remove(person);
+            return true;
         }
 
-
-        public void DisplayContact()
+        // Display All Contacts
+        public void DisplayAllContacts()
         {
-            if (person == null)
+            if (persons.Count == 0)
             {
-                Console.WriteLine("No contact available.");
+                Console.WriteLine("\nNo contacts available.");
                 return;
             }
-            Console.WriteLine("Contact Details:");
-            Console.WriteLine("First Name : " + person.FirstName);
-            Console.WriteLine("Last Name  : " + person.LastName);
-            Console.WriteLine("Address    : " + person.Address);
-            Console.WriteLine("City       : " + person.City);
-            Console.WriteLine("State      : " + person.State);
-            Console.WriteLine("Zip        : " + person.Zip);
-            Console.WriteLine("Phone No   : " + person.PhoneNumber);
-            Console.WriteLine("Email      : " + person.Email);
-        }
 
+            foreach (var p in persons)
+            {
+                Console.WriteLine("\n----------------------");
+                Console.WriteLine("First Name : " + p.FirstName);
+                Console.WriteLine("Last Name  : " + p.LastName);
+                Console.WriteLine("Address    : " + p.Address);
+                Console.WriteLine("City       : " + p.City);
+                Console.WriteLine("State      : " + p.State);
+                Console.WriteLine("Zip        : " + p.Zip);
+                Console.WriteLine("Phone No   : " + p.PhoneNumber);
+                Console.WriteLine("Email      : " + p.Email);
+            }
+        }
     }
 }
