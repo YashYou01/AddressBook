@@ -11,6 +11,7 @@ namespace AddressBook
             Console.WriteLine("Welcome to Address Book Program\n");
 
             AddressBookService service = new AddressBookService();
+            string choice;
 
             // ---------- UC-1 ----------
             ContactPerson person = new ContactPerson();
@@ -42,41 +43,68 @@ namespace AddressBook
             service.AddContact(person);
             service.DisplayContact();
 
-            // ---------- UC-3 ----------
-            Console.Write("\nEnter First Name to Edit: ");
-            string name = Console.ReadLine();
+            // -------- UC-3 : Edit Contact --------
+            Console.Write("\nDo you want to edit the contact? (yes/no): ");
+            choice = Console.ReadLine();
 
-            ContactPerson updated = new ContactPerson();
-
-            Console.Write("Enter New Address: ");
-            updated.Address = Console.ReadLine();
-
-            Console.Write("Enter New City: ");
-            updated.City = Console.ReadLine();
-
-            Console.Write("Enter New State: ");
-            updated.State = Console.ReadLine();
-
-            Console.Write("Enter New Zip: ");
-            updated.Zip = Console.ReadLine();
-
-            Console.Write("Enter New Phone Number: ");
-            updated.PhoneNumber = Console.ReadLine();
-
-            Console.Write("Enter New Email: ");
-            updated.Email = Console.ReadLine();
-
-            bool edited = service.EditContact(name, updated);
-
-            if (edited)
+            if (choice.Equals("yes", StringComparison.OrdinalIgnoreCase))
             {
-                Console.WriteLine("\nContact Updated Successfully!\n");
-                service.DisplayContact();
+                Console.Write("Enter First Name to Edit: ");
+                string editName = Console.ReadLine();
+
+                //  Check FIRST
+                if (!service.ContactExists(editName))
+                {
+                    Console.WriteLine("\nContact Not Found!");
+                }
+                else
+                {
+                    //  Ask fields ONLY if contact exists
+                    ContactPerson updated = new ContactPerson();
+
+                    Console.Write("Enter New Address: ");
+                    updated.Address = Console.ReadLine();
+
+                    Console.Write("Enter New City: ");
+                    updated.City = Console.ReadLine();
+
+                    Console.Write("Enter New State: ");
+                    updated.State = Console.ReadLine();
+
+                    Console.Write("Enter New Zip: ");
+                    updated.Zip = Console.ReadLine();
+
+                    Console.Write("Enter New Phone Number: ");
+                    updated.PhoneNumber = Console.ReadLine();
+
+                    Console.Write("Enter New Email: ");
+                    updated.Email = Console.ReadLine();
+
+                    service.EditContact(editName, updated);
+                    Console.WriteLine("\nContact Updated Successfully!");
+                    service.DisplayContact();
+                }
             }
-            else
+
+            // ---------------- UC-4 : Delete Contact ----------------
+            Console.Write("\nDo you want to delete the contact? (yes/no): ");
+            choice = Console.ReadLine();
+
+            if (choice.Equals("yes", StringComparison.OrdinalIgnoreCase))
             {
-                Console.WriteLine("\nContact Not Found!");
+                Console.Write("Enter First Name to Delete: ");
+                string deleteName = Console.ReadLine();
+
+                if (service.DeleteContact(deleteName))
+                {
+                    Console.WriteLine("\nContact Deleted Successfully!");
+                }
+                else
+                {
+                    Console.WriteLine("\nContact Not Found!");
+                }
             }
+
 
             Console.ReadLine();
         }

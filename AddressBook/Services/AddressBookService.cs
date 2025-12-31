@@ -31,10 +31,33 @@ namespace AddressBook.Services
             }
             return false;
         }
+        // Check if contact exists (UC-3 helper)
+        public bool ContactExists(string firstName)
+        {
+            return person != null &&
+                   person.FirstName.Equals(firstName, StringComparison.OrdinalIgnoreCase);
+        }
+
+        //  UC-4: Delete Contact using name
+        public bool DeleteContact(string firstName)
+        {
+            if (person != null &&
+                person.FirstName.Equals(firstName, StringComparison.OrdinalIgnoreCase))
+            {
+                person = null;
+                return true;
+            }
+            return false;
+        }
 
 
         public void DisplayContact()
         {
+            if (person == null)
+            {
+                Console.WriteLine("No contact available.");
+                return;
+            }
             Console.WriteLine("Contact Details:");
             Console.WriteLine("First Name : " + person.FirstName);
             Console.WriteLine("Last Name  : " + person.LastName);
