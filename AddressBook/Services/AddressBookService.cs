@@ -57,6 +57,18 @@ namespace AddressBook.Services
             return true;
         }
 
+        // UC-8: Search person by City or State
+        public List<ContactPerson> SearchByCityOrState(string city, string state)
+        {
+            return persons.FindAll(p =>
+                (!string.IsNullOrEmpty(city) &&
+                 p.City.Equals(city, StringComparison.OrdinalIgnoreCase)) ||
+                (!string.IsNullOrEmpty(state) &&
+                 p.State.Equals(state, StringComparison.OrdinalIgnoreCase))
+            );
+        }
+
+
         // Display Contacts
         public void DisplayAllContacts()
         {

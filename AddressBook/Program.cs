@@ -18,6 +18,7 @@ namespace AddressBook
                 Console.WriteLine("2. Edit Contact");
                 Console.WriteLine("3. Delete Contact");
                 Console.WriteLine("4. Display All Contacts");
+                Console.WriteLine("5. Search Person by City or State");
                 Console.WriteLine("0. Exit");
                 Console.Write("Enter choice: ");
 
@@ -101,6 +102,35 @@ namespace AddressBook
                     case 4:
                         service.DisplayAllContacts();
                         break;
+
+                    case 5: // UC-8
+                        Console.Write("Enter City (leave blank if not applicable): ");
+                        string city = Console.ReadLine();
+
+                        Console.Write("Enter State (leave blank if not applicable): ");
+                        string state = Console.ReadLine();
+
+                        var results = service.SearchByCityOrState(city, state);
+
+                        if (results.Count == 0)
+                        {
+                            Console.WriteLine("No contacts found.");
+                        }
+                        else
+                        {
+                            Console.WriteLine("\nSearch Results:");
+                            foreach (var p in results)
+                            {
+                                Console.WriteLine("--------------------");
+                                Console.WriteLine("First Name : " + p.FirstName);
+                                Console.WriteLine("Last Name  : " + p.LastName);
+                                Console.WriteLine("City       : " + p.City);
+                                Console.WriteLine("State      : " + p.State);
+                                Console.WriteLine("Phone No   : " + p.PhoneNumber);
+                            }
+                        }
+                        break;
+
 
                     case 0:
                         Console.WriteLine("Exiting program...");
