@@ -102,10 +102,28 @@ namespace AddressBook.Services
             return stateMap;
         }
 
+       
+
+        // UC-10: Count persons by City using LINQ
+        public Dictionary<string, int> CountByCity()
+            {
+                return persons
+                    .GroupBy(p => p.City)
+                    .ToDictionary(g => g.Key, g => g.Count());
+            }
+
+            // UC-10: Count persons by State using LINQ
+            public Dictionary<string, int> CountByState()
+            {
+                return persons
+                    .GroupBy(p => p.State)
+                    .ToDictionary(g => g.Key, g => g.Count());
+            }
 
 
-        // Display Contacts
-        public void DisplayAllContacts()
+
+    // Display Contacts
+    public void DisplayAllContacts()
         {
             if (persons.Count == 0)
             {

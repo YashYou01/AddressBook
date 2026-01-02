@@ -21,6 +21,9 @@ namespace AddressBook
                 Console.WriteLine("5. Search Person by City or State");
                 Console.WriteLine("6. View Persons by City");
                 Console.WriteLine("7. View Persons by State");
+                Console.WriteLine("8. Count Persons by City");
+                Console.WriteLine("9. Count Persons by State");
+
                 Console.WriteLine("0. Exit");
                 Console.Write("Enter choice: ");
 
@@ -158,6 +161,19 @@ namespace AddressBook
                             }
                         }
                         break;
+
+                    case 8: // UC-10 Count by City
+                        var cityCount = service.CountByCity();
+                        foreach (var c in cityCount)
+                            Console.WriteLine($"{c.Key} : {c.Value}");
+                        break;
+
+                    case 9: // UC-10 Count by State
+                        var stateCount = service.CountByState();
+                        foreach (var s in stateCount)
+                            Console.WriteLine($"{s.Key} : {s.Value}");
+                        break;
+
 
 
 
