@@ -4,7 +4,7 @@ using AddressBook.Services;
 
 namespace AddressBook
 {
-    internal class Program
+    public class Program
     {
         static void Main(string[] args)
         {

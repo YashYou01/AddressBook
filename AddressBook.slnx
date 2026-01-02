@@ -1,3 +1,4 @@
 <Solution>
   <Project Path="AddressBook/AddressBook.csproj" />
+  <Project Path="AddressBookTests/AddressBookTests.csproj" Id="fb9ce6b1-2093-4f92-9e51-fac28700cb26" />
 </Solution>
