@@ -19,6 +19,8 @@ namespace AddressBook
                 Console.WriteLine("3. Delete Contact");
                 Console.WriteLine("4. Display All Contacts");
                 Console.WriteLine("5. Search Person by City or State");
+                Console.WriteLine("6. View Persons by City");
+                Console.WriteLine("7. View Persons by State");
                 Console.WriteLine("0. Exit");
                 Console.Write("Enter choice: ");
 
@@ -130,6 +132,33 @@ namespace AddressBook
                             }
                         }
                         break;
+
+                    case 6: // UC-9 View by City
+                        var cityDict = service.ViewByCity();
+
+                        foreach (var entry in cityDict)
+                        {
+                            Console.WriteLine("\nCity: " + entry.Key);
+                            foreach (var p in entry.Value)
+                            {
+                                Console.WriteLine(" - " + p.FirstName + " " + p.LastName);
+                            }
+                        }
+                        break;
+
+                    case 7: // UC-9 View by State
+                        var stateDict = service.ViewByState();
+
+                        foreach (var entry in stateDict)
+                        {
+                            Console.WriteLine("\nState: " + entry.Key);
+                            foreach (var p in entry.Value)
+                            {
+                                Console.WriteLine(" - " + p.FirstName + " " + p.LastName);
+                            }
+                        }
+                        break;
+
 
 
                     case 0:

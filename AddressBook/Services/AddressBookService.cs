@@ -68,6 +68,41 @@ namespace AddressBook.Services
             );
         }
 
+        // UC-9: View persons by City
+        public Dictionary<string, List<ContactPerson>> ViewByCity()
+        {
+            Dictionary<string, List<ContactPerson>> cityMap =
+                new Dictionary<string, List<ContactPerson>>();
+
+            foreach (var person in persons)
+            {
+                if (!cityMap.ContainsKey(person.City))
+                {
+                    cityMap[person.City] = new List<ContactPerson>();
+                }
+                cityMap[person.City].Add(person);
+            }
+            return cityMap;
+        }
+
+        // UC-9: View persons by State
+        public Dictionary<string, List<ContactPerson>> ViewByState()
+        {
+            Dictionary<string, List<ContactPerson>> stateMap =
+                new Dictionary<string, List<ContactPerson>>();
+
+            foreach (var person in persons)
+            {
+                if (!stateMap.ContainsKey(person.State))
+                {
+                    stateMap[person.State] = new List<ContactPerson>();
+                }
+                stateMap[person.State].Add(person);
+            }
+            return stateMap;
+        }
+
+
 
         // Display Contacts
         public void DisplayAllContacts()
