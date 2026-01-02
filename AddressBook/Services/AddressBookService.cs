@@ -120,6 +120,45 @@ namespace AddressBook.Services
                     .ToDictionary(g => g.Key, g => g.Count());
             }
 
+            
+          
+
+        // UC-11: Sort by First Name
+        public List<ContactPerson> SortByName()
+            {
+                return persons
+                    .OrderBy(p => p.FirstName)
+                    .ThenBy(p => p.LastName)
+                    .ToList();
+            }
+
+            // UC-11: Sort by City
+            public List<ContactPerson> SortByCity()
+            {
+                return persons
+                    .OrderBy(p => p.City)
+                    .ThenBy(p => p.FirstName)
+                    .ToList();
+            }
+
+            // UC-11: Sort by State
+            public List<ContactPerson> SortByState()
+            {
+                return persons
+                    .OrderBy(p => p.State)
+                    .ThenBy(p => p.FirstName)
+                    .ToList();
+            }
+
+            // UC-11: Sort by Zip
+            public List<ContactPerson> SortByZip()
+            {
+                return persons
+                    .OrderBy(p => p.Zip)
+                    .ToList();
+            }
+
+
 
 
     // Display Contacts

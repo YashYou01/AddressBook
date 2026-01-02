@@ -23,7 +23,10 @@ namespace AddressBook
                 Console.WriteLine("7. View Persons by State");
                 Console.WriteLine("8. Count Persons by City");
                 Console.WriteLine("9. Count Persons by State");
-
+                Console.WriteLine("10. Sort Contacts by Name");
+                Console.WriteLine("11. Sort Contacts by City");
+                Console.WriteLine("12. Sort Contacts by State");
+                Console.WriteLine("13. Sort Contacts by Zip");
                 Console.WriteLine("0. Exit");
                 Console.Write("Enter choice: ");
 
@@ -174,6 +177,26 @@ namespace AddressBook
                             Console.WriteLine($"{s.Key} : {s.Value}");
                         break;
 
+                    case 10: // Sort by Name
+                        var byName = service.SortByName();
+                        PrintContacts(byName);
+                        break;
+
+                    case 11: // Sort by City
+                        var byCity = service.SortByCity();
+                        PrintContacts(byCity);
+                        break;
+
+                    case 12: // Sort by State
+                        var byState = service.SortByState();
+                        PrintContacts(byState);
+                        break;
+
+                    case 13: // Sort by Zip
+                        var byZip = service.SortByZip();
+                        PrintContacts(byZip);
+                        break;
+
 
 
 
@@ -188,6 +211,18 @@ namespace AddressBook
 
             } while (choice != 0);
             //Uc7 Merged Internally
+            static void PrintContacts(List<ContactPerson> list)
+            {
+                foreach (var p in list)
+                {
+                    Console.WriteLine("--------------------");
+                    Console.WriteLine($"{p.FirstName} {p.LastName}");
+                    Console.WriteLine($"{p.City}, {p.State} - {p.Zip}");
+                    Console.WriteLine($"Phone: {p.PhoneNumber}");
+                    Console.WriteLine($"Email: {p.Email}");
+                }
+            }
+
 
         }
     }
