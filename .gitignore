@@ -1,4 +1,6 @@
 .vs/
 /AddressBook/bin/
 /AddressBook/obj/
+/AddressBookTests/bin/
+/AddressBookTests/obj/
 
